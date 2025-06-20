@@ -1,54 +1,54 @@
-# 🎮 Monster Survival - Jogo de Sobrevivência
+# Monster Survival Game
 
-Um jogo de sobrevivência desenvolvido em **C** utilizando a biblioteca **Raylib**. O objetivo é escapar dos fantasmas pelo maior tempo possível, controlando um pistoleiro no Velho Oeste.
+A survival game developed in **C** using the **Raylib** graphics library. The objective is to escape from ghosts for as long as possible while controlling a gunslinger in the Old West.
 
-## 🎯 Sobre o Projeto
+## Project Overview
 
-Este projeto foi desenvolvido para aprimorar conhecimentos em:
-- Programação em C
-- Biblioteca Raylib para desenvolvimento de jogos
-- Manipulação de vetores e matemática de jogos
-- Gerenciamento de colisões
-- Programação orientada a estruturas
+This project was developed to enhance knowledge in:
+- C programming
+- Raylib game development library
+- Vector manipulation and game mathematics
+- Collision detection and management
+- Structure-oriented programming
 
-## 🕹️ Como Jogar
+## How to Play
 
-- **Setas do teclado**: Mover o jogador
-- **P**: Pausar/Despausar o jogo
-- **Enter**: Reiniciar após game over
+- **Arrow keys**: Move the player
+- **P**: Pause/Unpause the game
+- **Enter**: Restart after game over
 
-### Objetivo
-Sobreviva o máximo de tempo possível evitando ser pego pelos fantasmas vermelhos que te perseguem!
+### Objective
+Survive as long as possible by avoiding being caught by the red ghosts that chase you!
 
-## 🛠️ Tecnologias Utilizadas
+## Technologies Used
 
-- **Linguagem**: C
-- **Biblioteca Gráfica**: Raylib
+- **Language**: C
+- **Graphics Library**: Raylib
 - **IDE**: Visual Studio Code
-- **Compilador**: GCC
+- **Compiler**: GCC
 
-## 📋 Funcionalidades
+## Features
 
-### ✅ Implementadas
-- [x] Movimentação fluida do jogador
-- [x] Sistema de perseguição inteligente dos inimigos
-- [x] Detecção de colisões entre jogador e monstros
-- [x] Sistema de colisão entre monstros (evita sobreposição)
-- [x] Música de fundo temática do Velho Oeste
-- [x] Sistema de pause
-- [x] Contador de tempo de sobrevivência
-- [x] Sprites customizadas (pistoleiro, fantasmas, cenário)
-- [x] Tela de game over com opção de reiniciar
+### Implemented
+- Smooth player movement
+- Intelligent enemy pursuit system
+- Collision detection between player and monsters
+- Monster-to-monster collision system (prevents overlapping)
+- Thematic Old West background music
+- Pause system
+- Survival time counter
+- Custom sprites (gunslinger, ghosts, scenery)
+- Game over screen with restart option
 
-### 🎨 Assets Visuais
-- Sprite do pistoleiro (gunslinger.png)
-- Sprites dos fantasmas (fantasma.png)
-- Cenário do Velho Oeste (teladefundo.png)
-- Música ambiente (OldWest.mp3)
+### Visual Assets
+- Gunslinger sprite (gunslinger.png)
+- Ghost sprites (fantasma.png)
+- Old West scenery (teladefundo.png)
+- Ambient music (OldWest.mp3)
 
-## 🏗️ Estrutura do Código
+## Code Structure
 
-### Principais Estruturas
+### Main Structures
 ```c
 typedef struct Player {
     Vector2 position;
@@ -67,82 +67,82 @@ typedef struct Monster {
 } Monster;
 ```
 
-### Funções Matemáticas Customizadas
-- `MyVector2Subtract()`: Subtração de vetores
-- `MyVector2Normalize()`: Normalização de vetores
-- `MyVector2Distance()`: Cálculo de distância entre vetores
+### Custom Mathematical Functions
+- `MyVector2Subtract()`: Vector subtraction
+- `MyVector2Normalize()`: Vector normalization
+- `MyVector2Distance()`: Distance calculation between vectors
 
-## 🚀 Como Executar
+## How to Run
 
-### Pré-requisitos
-- Raylib instalada
-- Compilador GCC
-- Sistema Windows/Linux/macOS
+### Prerequisites
+- Raylib library installed
+- GCC compiler
+- Windows/Linux/macOS system
 
-### Compilação
+### Compilation
 ```bash
 gcc SurvivalSimples.c -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 -o game
 ```
 
-### Execução
+### Execution
 ```bash
 ./game
 ```
 
-## 📁 Estrutura do Projeto
+## Project Structure
 
 ```
 simple-game-raylib/
-├── SurvivalSimples.c          # Código principal do jogo
-├── README.md                  # Documentação do projeto
-└── resources/                 # Assets do jogo
-    ├── fantasma.png          # Sprite dos monstros
-    ├── gunslinger.png        # Sprite do jogador
-    ├── OldWest.mp3          # Música de fundo
-    └── teladefundo.png      # Imagem de fundo
+├── SurvivalSimples.c          # Main game code
+├── README.md                  # Project documentation
+└── resources/                 # Game assets
+    ├── fantasma.png          # Monster sprites
+    ├── gunslinger.png        # Player sprite
+    ├── OldWest.mp3          # Background music
+    └── teladefundo.png      # Background image
 ```
 
-## 🎮 Mecânicas do Jogo
+## Game Mechanics
 
-### Sistema de Perseguição
-Os fantasmas utilizam um algoritmo de perseguição baseado em vetores normalizados, movendo-se constantemente em direção ao jogador.
+### Pursuit System
+The ghosts use a vector-based pursuit algorithm, constantly moving towards the player using normalized vectors.
 
-### Sistema de Colisão Anti-Sobreposição
-Implementação de lógica para evitar que os monstros se sobreponham, criando um gameplay mais fluido e visualmente agradável.
+### Anti-Overlap Collision System
+Implementation of logic to prevent monsters from overlapping, creating more fluid and visually appealing gameplay.
 
-### Controle de Bordas
-O jogador é limitado às bordas da tela, impedindo que saia dos limites visuais do jogo.
+### Boundary Control
+The player is constrained to the screen edges, preventing movement outside the visual game limits.
 
-## 📊 Estatísticas Técnicas
+## Technical Specifications
 
-- **Linguagem**: C (100%)
-- **FPS Target**: 60 FPS
-- **Resolução**: 1080x720
-- **Máximo de Monstros**: 4 simultâneos
-- **Velocidade dos Monstros**: 1.5 unidades/frame
+- **Language**: C (100%)
+- **Target FPS**: 60 FPS
+- **Resolution**: 1080x720
+- **Maximum Monsters**: 4 simultaneous
+- **Monster Speed**: 1.5 units/frame
 
-## 🎯 Aprendizados e Conquistas
+## Learning Outcomes and Achievements
 
-- Implementação de matemática vetorial em jogos
-- Gerenciamento de estados de jogo (playing, paused, game over)
-- Otimização de colisões em tempo real
-- Integração de assets audiovisuais
-- Arquitetura modular de código em C
+- Implementation of vector mathematics in games
+- Game state management (playing, paused, game over)
+- Real-time collision optimization
+- Audio-visual asset integration
+- Modular code architecture in C
 
-## 🔄 Possíveis Melhorias Futuras
+## Future Improvements
 
-- [ ] Sistema de power-ups
-- [ ] Diferentes tipos de inimigos
-- [ ] Sistema de pontuação
-- [ ] Múltiplas fases
-- [ ] Efeitos sonoros
-- [ ] Partículas visuais
+- Power-up system
+- Different enemy types
+- Scoring system
+- Multiple levels
+- Sound effects
+- Visual particle effects
 
-## 👨‍💻 Desenvolvedor
+## Developer
 
-**Bruno** - Desenvolvedor de Software  
-📍 Focado em aprimorar habilidades em programação de jogos e bibliotecas gráficas
+**Bruno** - Software Developer  
+Focused on improving skills in game programming and graphics libraries
 
 ---
 
-*Projeto desenvolvido como parte do estudo contínuo em desenvolvimento de jogos e programação em C.*
+*Project developed as part of continuous study in game development and C programming.*
