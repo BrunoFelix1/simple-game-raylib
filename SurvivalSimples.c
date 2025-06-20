@@ -1,7 +1,6 @@
 #include "raylib.h"
 #include <math.h>
 
-// Definições
 #define MONSTERS_SPEED 1.5
 #define MAX_MONSTERS 4
 
@@ -21,8 +20,7 @@ typedef struct Monster {
     Color color;
 } Monster;
 
-// Cabeçalho de funções
-static void InitGame(int* framesCounter, Player* player, Monster* monsters, bool* pause, int* screenWidth, int* screenHeight);         
+static void InitGame(int* framesCounter, Player* player, Monster* monsters, bool* pause, int* screenWidth, int* screenHeight);
 static void UpdateGame(Music* gameMusic, int* framesCounter, bool* gameOver, bool* pause, Player* player, Monster* monsters, int* screenWidth, int* screenHeight);       
 static void DrawGame(Texture2D* textura_player, Texture2D* textura_background, Texture2D* textura_fantasma, int* framesCounter, bool* gameOver, bool* pause, Player* player, Monster* monsters, int* screenHeight, int* screenWidth);         
 static void UnloadGame(Music* gameMusic);       
@@ -32,10 +30,8 @@ Vector2 MyVector2Subtract(Vector2 v1, Vector2 v2);
 Vector2 MyVector2Normalize(Vector2 v);
 float MyVector2Distance(Vector2 v1, Vector2 v2);
 
-// Programa Principal
 int main(void)
 {
-    // Inicialização 
     int screenWidth = 1080;
     int screenHeight = 720;
     InitWindow(screenWidth, screenHeight, "Monster Survival");
@@ -50,42 +46,27 @@ int main(void)
     Player player = { 0 };
     Monster monsters[MAX_MONSTERS] = { 0 };
 
-    InitGame(&framesCounter, &player, monsters, &pause, &screenWidth, &screenHeight);
-
-    SetTargetFPS(60);
-
-    // Loop principal
-    while (!WindowShouldClose())    
+    InitGame(&framesCounter, &player, monsters, &pause, &screenWidth, &screenHeight);    SetTargetFPS(60);    while (!WindowShouldClose())    
     {
-        // Atualização e Desenho
         UpdateDrawFrame(&textura_player, &textura_background, &textura_fantasma, &gameMusic, &screenWidth, &screenHeight, &framesCounter, &gameOver, &pause, &player, monsters);
     }
     
-    // Desinicialização
-    UnloadGame(&gameMusic);         
+    UnloadGame(&gameMusic);
     CloseAudioDevice();
-    CloseWindow();        
-    return 0;
+    CloseWindow();          return 0;
 }
 
-// Funções Locais
-// Inicializar variáveis do jogo
 void InitGame(int* framesCounter, Player* player, Monster* monsters, bool* pause, int* screenWidth, int* screenHeight)
 {
     int posx, posy;
-    bool correctRange = false;
-
-    *pause = false;
+    bool correctRange = false;    *pause = false;
     *framesCounter = 0;
     
-    // Inicialização do jogador
     (*player).size = (Vector2){170, 95};
     (*player).position = (Vector2){*screenWidth / 2 - (*player).size.x / 2, *screenHeight / 2 - (*player).size.y / 2};
     (*player).speed = 3;
-    (*player).rectangle_player = (Rectangle){(*player).position.x, (*player).position.y, (*player).size.x, (*player).size.y};
-    (*player).color = YELLOW;
+    (*player).rectangle_player = (Rectangle){(*player).position.x, (*player).position.y, (*player).size.x, (*player).size.y};    (*player).color = YELLOW;
     
-    // Inicialização dos monstros
     for (int i = 0; i < MAX_MONSTERS; i++)
     {
         posx = GetRandomValue(0, *screenWidth);
@@ -120,7 +101,6 @@ void InitGame(int* framesCounter, Player* player, Monster* monsters, bool* pause
     }
 }
 
-// Atualizar jogo
 void UpdateGame(Music* gameMusic, int* framesCounter, bool* gameOver, bool* pause, Player* player, Monster* monsters, int* screenWidth, int* screenHeight)
 {
     if (!*gameOver)
@@ -154,41 +134,30 @@ void UpdateGame(Music* gameMusic, int* framesCounter, bool* gameOver, bool* paus
             if (IsKeyDown(KEY_RIGHT) && (*player).position.x < *screenWidth - (*player).size.x - 3)
             {
                 (*player).position.x += (*player).speed;
-                (*player).rectangle_player.x += (*player).speed;
-            }
+                (*player).rectangle_player.x += (*player).speed;            }
            
-            // Colisão Jogador com Monstros
             for (int a = 0; a < MAX_MONSTERS; a++)
             {
                 if (CheckCollisionCircleRec(monsters[a].position, monsters[a].radius, (*player).rectangle_player) && monsters[a].active)
-                    *gameOver = true;
-            }
+                    *gameOver = true;            }
 
-            // Lógica dos Monstros
             for (int i = 0; i < MAX_MONSTERS; i++)
-            {
-                if (monsters[i].active)
+            {                if (monsters[i].active)
                 {
                     
-                    // movimento em direção ao jogador
                     Vector2 direction = MyVector2Subtract((*player).position, monsters[i].position);
                     direction = MyVector2Normalize(direction);
        
-                    monsters[i].position.x += monsters[i].speed * direction.x;
-                    monsters[i].position.y += monsters[i].speed * direction.y;
+                    monsters[i].position.x += monsters[i].speed * direction.x;                    monsters[i].position.y += monsters[i].speed * direction.y;
                     
                 
-                    // colisão com outros monstros
                     for (int j = 0; j < MAX_MONSTERS; j++)
                     {
                         if (i != j && monsters[j].active)
                         {
                             float distance = MyVector2Distance(monsters[i].position, monsters[j].position);
-                            float minDistance = monsters[i].radius + monsters[j].radius;
-
-                            if (distance < minDistance)
+                            float minDistance = monsters[i].radius + monsters[j].radius;                            if (distance < minDistance)
                             {
-                                // Quando eles tiverm próximos, serão afastados por um vetor contrário a suas posições
                                 Vector2 separationVector = MyVector2Subtract(monsters[i].position, monsters[j].position);
                                 separationVector = MyVector2Normalize(separationVector);
 
@@ -211,22 +180,16 @@ void UpdateGame(Music* gameMusic, int* framesCounter, bool* gameOver, bool* paus
     }
 }
 
-// Desenhar jogo 
 void DrawGame(Texture2D* textura_player, Texture2D* textura_background, Texture2D* textura_fantasma, int* framesCounter, bool* gameOver, bool* pause, Player* player, Monster* monsters, int* screenHeight, int* screenWidth)
 {
     BeginDrawing();
 
-    ClearBackground(RAYWHITE);
-
-    if (!*gameOver)
+    ClearBackground(RAYWHITE);    if (!*gameOver)
     {
-        //Colisão
         DrawRectangleLines(0, 0, *screenWidth, *screenHeight, BLACK);
         DrawRectangleRec((*player).rectangle_player, BLACK);
-        DrawTextureEx(*textura_background, (Vector2){0, 0}, 0, 1, RAYWHITE);
-        DrawTextureEx(*textura_player, (*player).position, 0, 0.7, RAYWHITE);
+        DrawTextureEx(*textura_background, (Vector2){0, 0}, 0, 1, RAYWHITE);        DrawTextureEx(*textura_player, (*player).position, 0, 0.7, RAYWHITE);
 
-        // Desenhar Monstros
         for (int i = 0; i < MAX_MONSTERS; i++)
         {
             if (monsters[i].active)
@@ -254,20 +217,17 @@ void DrawGame(Texture2D* textura_player, Texture2D* textura_background, Texture2
     EndDrawing();
 }
 
-// Descarregar variáveis do jogo
 void UnloadGame(Music* gameMusic)
 {
     UnloadMusicStream(*gameMusic);
 }
 
-// Atualiza e desenha
 void UpdateDrawFrame(Texture2D* textura_player, Texture2D* textura_background, Texture2D* textura_fantasma, Music* gameMusic, int* screenWidth, int* screenHeight, int* framesCounter, bool* gameOver, bool* pause, Player* player, Monster* monsters)
 {
     UpdateGame(gameMusic, framesCounter, gameOver, pause, player, monsters, screenWidth, screenHeight);
     DrawGame(textura_player, textura_background, textura_fantasma, framesCounter, gameOver, pause, player, monsters, screenHeight, screenWidth);
 }
 
-//Função que resulta num vetor entre a posição de dois vetores
 Vector2 MyVector2Subtract(Vector2 v1, Vector2 v2)
 {
     Vector2 result;
@@ -276,7 +236,6 @@ Vector2 MyVector2Subtract(Vector2 v1, Vector2 v2)
     return result;
 }
 
-//Função que normaliza um vetor, deixando seu tamanho baseado no vetor unitário
 Vector2 MyVector2Normalize(Vector2 v)
 {
     float length = sqrtf(v.x * v.x + v.y * v.y);
@@ -290,7 +249,6 @@ Vector2 MyVector2Normalize(Vector2 v)
     return result;
 }
 
-//Retorna a distância de um vetor, seu tamanho
 float MyVector2Distance(Vector2 v1, Vector2 v2) {
     float dx = v2.x - v1.x;
     float dy = v2.y - v1.y;
